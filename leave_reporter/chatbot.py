@@ -39,6 +39,7 @@ if __name__ == '__main__':
 
     while GROUP_ID is not None:
         time.sleep(1)
+        print(f'Group ID: {GROUP_ID}')
     else:
         flask_p.terminate()
         flask_p.join()

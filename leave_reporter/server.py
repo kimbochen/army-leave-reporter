@@ -10,8 +10,8 @@ def create_report():
 
     service = build('sheets', 'v4', developerKey=api_key)
     sheet = service.spreadsheets()
-    results = sheet.values().get(spreadsheetId=spreadsheet_id, range='A2:C').execute()
-    records = sorted(results['values'], key=lambda r: r[1])  # [Timestamp, Name, Content]
+    results = sheet.values().get(spreadsheetId=spreadsheet_id, range='B2:C').execute()
+    records = sorted(results['values'], key=lambda r: r[0])  # [Timestamp, Name, Content]
 
     content = [f'{name}\n{response}' for _, name, response in records]
     header = f'''放假回報

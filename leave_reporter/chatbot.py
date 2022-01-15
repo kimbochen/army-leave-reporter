@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
 from linebot.models import JoinEvent, MessageEvent, TextMessage, TextSendMessage
 
 
@@ -20,7 +21,12 @@ def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
     app.logger.info(f'Request body: {body}')
-    HANDLER.handle(body, signature)
+
+    try:
+        HANDLER.handle(body, signature)
+    except InvalidSignatureError:
+        app.logger.error("Invalid signature. Please check your channel access token/channel secret.")
+        abort(400)
 
 
 if __name__ == '__main__':

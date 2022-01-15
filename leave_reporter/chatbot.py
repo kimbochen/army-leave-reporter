@@ -11,7 +11,7 @@ from linebot.models import JoinEvent, TextSendMessage
 APP = Flask(__name__)
 LINE_BOT_API = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
-GROUP_ID = Value(c_char_p, None)
+GROUP_ID = Value(c_char_p, 'default')
 
 
 @HANDLER.add(JoinEvent)
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     flask_p = Process(target=APP.run, args=('0.0.0.0', port))
     flask_p.start()
 
-    while GROUP_ID is None:
+    while GROUP_ID == 'default':
         time.sleep(1)
     else:
         flask_p.terminate()

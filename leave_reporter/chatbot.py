@@ -7,6 +7,8 @@ from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import JoinEvent, TextSendMessage
 
+from leave_reporter.server import create_report
+
 
 APP = Flask(__name__)
 LINE_BOT_API = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
@@ -32,10 +34,15 @@ def callback():
 def send_form(group_id):
     LINE_BOT_API.push_message(group_id, TextSendMessage(text='大家好，快要好了'))
 
+def send_report(group_id):
+    report = create_report()
+    LINE_BOT_API.push_message(group_id, TextSendMessage(text=report))
+
 def reminder():
     print(f'Started reminder.')
     group_id = GROUP_ID.value.decode()
-    schedule.every().day.at('18:13').do(send_form, group_id=group_id)
+    # schedule.every().day.at('18:13').do(send_form, group_id=group_id)  # Taipei Timezone!
+    schedule.every().day.at('18:20').do(send_report, group_id=group_id)  # Taipei Timezone!
     while True:
         schedule.run_pending()
         time.sleep(1)

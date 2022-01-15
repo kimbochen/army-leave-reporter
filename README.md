@@ -1,4 +1,4 @@
-# Leave Reporter
+# Army Leave Reporter
 
 This is a software service for soldiers to report their status during leave.
 

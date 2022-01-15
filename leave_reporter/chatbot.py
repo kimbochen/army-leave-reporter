@@ -10,7 +10,7 @@ from leave_reporter.server import create_report
 APP = Flask(__name__)
 LINE_BOT_API = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
-GROUP_ID = os.environ['GROUP_ID']
+GROUP_ID = os.environ('GROUP_ID', None)
 
 
 @HANDLER.add(JoinEvent)

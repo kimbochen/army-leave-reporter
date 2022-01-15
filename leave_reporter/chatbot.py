@@ -12,7 +12,7 @@ LINE_BOT_API = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
 INIT_ID = 'z' * 33
-GROUP_ID = Array('c', INIT_ID)
+GROUP_ID = Array('c', INIT_ID.encode('utf-8'))
 
 
 @HANDLER.add(JoinEvent)

@@ -1,4 +1,5 @@
 import os
+import time
 from multiprocessing import Process
 
 from flask import Flask, request
@@ -33,4 +34,10 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     flask_p = Process(target=APP.run, args=('0.0.0.0', port))
     flask_p.start()
-    flask_p.join()
+
+    while GROUP_ID is None:
+        time.sleep(1)
+    else:
+        flask_p.terminate()
+        flask_p.join()
+        reminder()

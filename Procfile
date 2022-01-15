@@ -1,1 +1,1 @@
-web: python src/chatbot.py
+web: python chatbot.py

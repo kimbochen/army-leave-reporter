@@ -1,9 +1,9 @@
 import os
+from multiprocessing import Process
 
-from flask import Flask, request, abort
+from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
-from linebot.exceptions import InvalidSignatureError
-from linebot.models import JoinEvent, MessageEvent, TextMessage, TextSendMessage
+from linebot.models import JoinEvent, TextSendMessage
 
 
 APP = Flask(__name__)
@@ -24,10 +24,22 @@ def callback():
     HANDLER.handle(body, signature)
     return 'OK'
 
-@APP.route('/')
-def home():
-    pass
-
-if __name__ == '__main__':
+def get_group_id():
     port = int(os.environ.get('PORT', 5000))
     APP.run(host='0.0.0.0', port=port)
+
+
+def reminder():
+    print('Started reminder.')
+
+
+if __name__ == '__main__':
+    flask_p = Process(target=get_group_id)
+    flask_p.start()
+
+    while GROUP_ID is not None:
+        time.sleep(1)
+    else:
+        flask_p.terminate()
+        flask_p.join()
+        reminder()

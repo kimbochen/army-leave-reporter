@@ -24,7 +24,7 @@ def callback():
     HANDLER.handle(body, signature)
     return 'OK'
 
-@APP.rout('/')
+@APP.route('/')
 def home():
     pass
 

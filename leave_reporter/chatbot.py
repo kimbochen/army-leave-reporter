@@ -36,7 +36,7 @@ def reminder():
     print(f'Started reminder.')
 
     group_id = GROUP_ID.value.decode()
-    schedule.every().day.at('10:08').do(send_form, group_id=group_id)
+    schedule.every().day.at('10:10').do(send_form, group_id=group_id)
 
     while True:
         schedule.run_pending()

@@ -23,6 +23,10 @@ def handle_join(event):
     GROUP_ID.value = event.source.group_id.encode()
     print(f'Obtained Group ID')
 
+@HANDLER.default()
+def default(event):
+    print(event)
+
 @APP.route('/callback', methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']

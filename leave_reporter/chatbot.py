@@ -33,6 +33,8 @@ def callback():
         app.logger.error("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
 
+    return 'OK'
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

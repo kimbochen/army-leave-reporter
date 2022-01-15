@@ -17,7 +17,7 @@ GROUP_ID = Array('c', INIT_ID)
 
 @HANDLER.add(JoinEvent)
 def handle_join(event):
-    GROUP_ID = event.source.group_id
+    GROUP_ID.value = event.source.group_id
     print(f'Obtained Group ID: {GROUP_ID}')
 
 @APP.route('/callback', methods=['POST'])
@@ -29,7 +29,7 @@ def callback():
 
 
 def reminder():
-    print(f'Started reminder, group ID = {GROUP_ID}.')
+    print(f'Started reminder, group ID = {GROUP_ID.value}.')
 
 
 if __name__ == '__main__':
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     flask_p = Process(target=APP.run, args=('0.0.0.0', port))
     flask_p.start()
 
-    while GROUP_ID == INIT_ID:
+    while GROUP_ID.value == INIT_ID:
         time.sleep(1)
     else:
         flask_p.terminate()

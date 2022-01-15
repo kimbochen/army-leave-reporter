@@ -32,7 +32,7 @@ def callback():
 
 
 def send_form(group_id):
-    LINE_BOT_API.push_message(group_id, TextSendMessage(text='大家好，快要好了'))
+    LINE_BOT_API.push_message(group_id, TextSendMessage(text='https://forms.gle/foKhtWvw6SC7TFV69'))
 
 def send_report(group_id):
     report = create_report()

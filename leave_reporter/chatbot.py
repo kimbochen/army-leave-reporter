@@ -24,23 +24,13 @@ def callback():
     HANDLER.handle(body, signature)
     return 'OK'
 
-def get_group_id():
-    port = int(os.environ.get('PORT', 5000))
-    APP.run(host='0.0.0.0', port=port)
-
 
 def reminder():
     print('Started reminder.')
 
 
 if __name__ == '__main__':
-    flask_p = Process(target=get_group_id)
+    port = int(os.environ.get('PORT', 5000))
+    flask_p = Process(target=APP.run, args=('0.0.0.0', port))
     flask_p.start()
-
-    while GROUP_ID is not None:
-        time.sleep(1)
-        print(f'Group ID: {GROUP_ID}')
-    else:
-        flask_p.terminate()
-        flask_p.join()
-        reminder()
+    flask_p.join()

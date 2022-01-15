@@ -1,6 +1,6 @@
 import os
 import time
-from multiprocessing import Process
+from multiprocessing import Process, Array
 
 from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
@@ -10,7 +10,7 @@ from linebot.models import JoinEvent, TextSendMessage
 APP = Flask(__name__)
 LINE_BOT_API = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
-GROUP_ID = None
+GROUP_ID = Array('c', None)
 
 
 @HANDLER.add(JoinEvent)

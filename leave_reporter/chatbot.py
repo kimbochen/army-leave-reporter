@@ -17,7 +17,7 @@ GROUP_ID = Array('c', INIT_ID)
 
 @HANDLER.add(JoinEvent)
 def handle_join(event):
-    GROUP_ID.value = event.source.group_id
+    GROUP_ID.value = event.source.group_id.encode()
     print(f'Obtained Group ID: {GROUP_ID}')
 
 @APP.route('/callback', methods=['POST'])
@@ -29,7 +29,7 @@ def callback():
 
 
 def reminder():
-    print(f'Started reminder, group ID = {GROUP_ID.value}.')
+    print(f'Started reminder, group ID = {GROUP_ID.value.decode()}.')
 
 
 if __name__ == '__main__':

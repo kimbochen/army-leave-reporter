@@ -1,6 +1,6 @@
 import os
 import time
-from multiprocessing import Process, Array
+from multiprocessing import Process
 
 from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
@@ -10,9 +10,7 @@ from linebot.models import JoinEvent, TextSendMessage
 APP = Flask(__name__)
 LINE_BOT_API = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
-
-INIT_ID = 'z' * 33
-GROUP_ID = Array('c', INIT_ID.encode('utf-8'))
+GROUP_ID = None
 
 
 @HANDLER.add(JoinEvent)
@@ -29,7 +27,7 @@ def callback():
 
 
 def reminder():
-    print('Started reminder.')
+    print(f'Started reminder, group ID = {GROUP_ID}.')
 
 
 if __name__ == '__main__':
@@ -37,9 +35,8 @@ if __name__ == '__main__':
     flask_p = Process(target=APP.run, args=('0.0.0.0', port))
     flask_p.start()
 
-    while GROUP_ID == INIT_ID:
-        time.sleep(1)
-    else:
-        flask_p.terminate()
-        flask_p.join()
-        reminder()
+    time.sleep(120)
+    flask_p.terminate()
+    flask_p.join()
+
+    reminder()

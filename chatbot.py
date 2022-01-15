@@ -4,7 +4,7 @@ from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import JoinEvent, MessageEvent, TextMessage, TextSendMessage
 
-from leave_reporter.server import create_report
+from server import create_report
 
 
 APP = Flask(__name__)

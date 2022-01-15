@@ -1,1 +1,1 @@
-web: python -m leave_reporter.chatbot
+web: python chatbot.py

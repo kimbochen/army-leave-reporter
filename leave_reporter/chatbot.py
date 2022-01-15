@@ -28,8 +28,17 @@ def callback():
     return 'OK'
 
 
+def send_form(group_id):
+    LINE_BOT_API.push_message(group_id, TextSendMessage(text='大家好，快要好了'))
+
 def reminder():
-    print(f'Started reminder, group ID = {GROUP_ID.value.decode()}.')
+    print(f'Started reminder.')
+
+    group_id = GROUP_ID.value.decode()
+    send_form(group_id)
+
+    while True:
+        time.sleep(1)
 
 
 if __name__ == '__main__':

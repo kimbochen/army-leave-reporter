@@ -43,7 +43,7 @@ def reminder():
     group_id = GROUP_ID.value.decode()
 
     # schedule.every().day.at('18:13').do(send_form, group_id=group_id)  # Taipei Timezone!
-    schedule.every().day.at('18:31').do(send_report, group_id=group_id)  # Taipei Timezone!
+    schedule.every().day.at('18:33').do(send_report, group_id=group_id)  # Taipei Timezone!
 
     while True:
         schedule.run_pending()

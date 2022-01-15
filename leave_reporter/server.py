@@ -14,7 +14,7 @@ def create_report():
     results = sheet.values().get(spreadsheetId=spreadsheet_id, range=data_range).execute()
     records = sorted(results['values'], key=lambda r: r[0])  # [Timestamp, Name, Content]
 
-    content = [f'{name}\n{response}' for _, name, response in records]
+    content = [f'{name}\n{response}' for name, response in records]
     header = f'''放假回報
 兵器連 第四班
 應到 13 員 實到 {len(content)} 員

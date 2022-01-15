@@ -14,7 +14,7 @@ HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
 @HANDLER.add(JoinEvent)
 def handle_join(event):
     group_id = event.source.group_id
-    app.logger.info(f'Obtained Group ID: {group_id}')
+    print(f'Obtained Group ID: {group_id}')
 
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -25,7 +25,6 @@ def handle_message(event):
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
-    app.logger.info(f'Request body: {body}')
 
     try:
         HANDLER.handle(body, signature)

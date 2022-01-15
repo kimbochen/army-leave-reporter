@@ -1,6 +1,5 @@
 import os
 
-import schedule
 from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import JoinEvent, MessageEvent, TextMessage, TextSendMessage

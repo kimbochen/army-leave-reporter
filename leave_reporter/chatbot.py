@@ -1,5 +1,4 @@
 import os
-import logging
 
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
@@ -16,15 +15,18 @@ GROUP_ID = None
 @HANDLER.add(JoinEvent)
 def handle_join(event):
     GROUP_ID = event.source.group_id
-    logging.info(f'Obtained Group ID: {GROUP_ID}')
+    print(f'Obtained Group ID: {GROUP_ID}')
 
-@APP.route("/callback", methods=['POST'])
+@APP.route('/callback', methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
     HANDLER.handle(body, signature)
     return 'OK'
 
+@APP.rout('/')
+def home():
+    pass
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

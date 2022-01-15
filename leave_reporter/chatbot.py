@@ -18,7 +18,7 @@ def handle_join(event):
     GROUP_ID = event.source.group_id
     print(f'Group ID obtained: {GROUP_ID=}')
 
-@handler.add(MessageEvent, message=TextMessage)
+@HANDLER.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
     if msg == '開始回報':

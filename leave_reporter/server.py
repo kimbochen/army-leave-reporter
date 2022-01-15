@@ -7,7 +7,7 @@ from googleapiclient.discovery import build
 def create_report():
     spreadsheet_id = os.environ['SPREADSHEET_ID']
     api_key = os.environ['API_KEY']
-    data_range = f"'{os.environ["SHEET_NAME"]}'!B2:C"
+    data_range = f"\'{os.environ['SHEET_NAME']}\'!B2:C"
 
     service = build('sheets', 'v4', developerKey=api_key)
     sheet = service.spreadsheets()

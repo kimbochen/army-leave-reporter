@@ -42,7 +42,7 @@ HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
 def handle_message(event):
     msg = event.message.text
     if msg == '開始回報':
-        reply = 'https://forms.gle/foKhtWvw6SC7TFV69'
+        reply = os.environ['FORM_LINK']
     elif msg == '彙整':
         reply = create_report()
     else:

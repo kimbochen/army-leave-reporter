@@ -43,8 +43,6 @@ HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
 def handle_message(event):
     msg = event.message.text
     if msg == '開始回報':
-        form_msg = TextSendMessage(text=)
-        LINE_BOT_API.reply_message(event.reply_token, form_msg)
         reply_msg = f'''回報連結：
 {os.environ['FORM_LINK']}
 確認回報情形：

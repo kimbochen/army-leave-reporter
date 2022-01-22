@@ -28,7 +28,8 @@ def create_report():
 看診人數：0
 發燒人數：0
 事故人數：0
-———————————————\n'''
+———————————————
+'''
     report = header + '\n\n'.join(content)
 
     return report
@@ -42,12 +43,15 @@ HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
 def handle_message(event):
     msg = event.message.text
     if msg == '開始回報':
-        reply = os.environ['FORM_LINK']
+        form_msg = TextSendMessage(text=os.environ['FORM_LINK'])
+        LINE_BOT_API.reply_message(event.reply_token, form_msg)
+        reply_msg = f'''確認填報情形：
+https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}'''
     elif msg == '彙整':
-        reply = create_report()
+        reply_msg = create_report()
     else:
         return
-    LINE_BOT_API.reply_message(event.reply_token, TextSendMessage(text=reply))
+    LINE_BOT_API.reply_message(event.reply_token, reply_msg)
 
 @APP.route('/callback', methods=['POST'])
 def callback():

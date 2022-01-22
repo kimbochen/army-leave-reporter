@@ -51,7 +51,7 @@ https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}'''
         reply_msg = create_report()
     else:
         return
-    LINE_BOT_API.reply_message(event.reply_token, reply_msg)
+    LINE_BOT_API.reply_message(event.reply_token, TextSendMessage(reply_msg))
 
 @APP.route('/callback', methods=['POST'])
 def callback():

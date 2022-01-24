@@ -15,8 +15,8 @@ REPORT_MSG = f'''回報連結：
 https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}'''
 
 CADENCE_CALLS = [
-    '威武', '嚴肅', '剛直', '安靜', '堅強', '確實',
-    '速決', '沈著', '忍耐', '機警', '勇敢'
+    '威武', '嚴肅', '剛直', '安靜', '堅強',
+    '確實', '速決', '沈著', '忍耐', '機警'
 ]
 
 

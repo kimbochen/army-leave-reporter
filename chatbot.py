@@ -9,6 +9,17 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.models import JoinEvent, MessageEvent, TextMessage, TextSendMessage
 
 
+REPORT_MSG = f'''回報連結：
+{os.environ['FORM_LINK']}
+確認回報情形：
+https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}'''
+
+CADENCE_CALLS = [
+    '威武', '嚴肅', '剛直', '安靜', '堅強', '確實',
+    '速決', '沈著', '忍耐', '機警', '勇敢'
+]
+
+
 def create_report():
     spreadsheet_id = os.environ['SPREADSHEET_ID']
     api_key = os.environ['API_KEY']
@@ -42,16 +53,23 @@ HANDLER = WebhookHandler(os.environ['CHANNEL_SECRET'])
 @HANDLER.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
+
     if msg == '開始回報':
-        reply_msg = f'''回報連結：
-{os.environ['FORM_LINK']}
-確認回報情形：
-https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}'''
+        reply_msg = REPORT_MSG
     elif msg == '彙整':
         reply_msg = create_report()
+    elif msg == '精神答數':
+        reply_msg = '雄壯'
+    elif msg in CADENCE_CALLS:
+        idx = CADENCE_CALLS.index(msg)
+        reply_msg = CADENCE_CALLS[idx + 1]
+    elif '以為' in msg:
+        reply_msg = '你以為，又你以為'
     else:
         return
+
     LINE_BOT_API.reply_message(event.reply_token, TextSendMessage(reply_msg))
+
 
 @APP.route('/callback', methods=['POST'])
 def callback():

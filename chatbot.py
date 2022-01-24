@@ -13,7 +13,7 @@ REPORT_MSG = f'''回報連結：
 {os.environ['FORM_LINK']}
 確認回報情形：
 https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}
-這是我的最後一次了各位'''
+最後一次回報了各位'''
 
 CADENCE_CALLS = [
     '威武', '嚴肅', '剛直', '安靜', '堅強',

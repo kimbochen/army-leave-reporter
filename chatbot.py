@@ -28,11 +28,14 @@ def create_report():
     service = build('sheets', 'v4', developerKey=api_key)
     sheet = service.spreadsheets()
     results = sheet.values().get(spreadsheetId=spreadsheet_id, range=data_range).execute()
-    records = sorted(results['values'], key=lambda r: r[0])  # [Name, Content]
+
+    if 'values' in results.keys():
+        records = sorted(results['values'], key=lambda r: r[0])  # [Name, Content]
+        content = [f'{name}\n{response}' for name, response in records]
+    else:
+        content = []
 
     now = datetime.now()
-
-    content = [f'{name}\n{response}' for name, response in records]
     header = f'''{now:%m/%d} {now:%H%M} 收假回報
 兵器連 第四班
 應到 13 員 實到 {len(content)} 員

@@ -12,7 +12,8 @@ from linebot.models import JoinEvent, MessageEvent, TextMessage, TextSendMessage
 REPORT_MSG = f'''回報連結：
 {os.environ['FORM_LINK']}
 確認回報情形：
-https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}'''
+https://docs.google.com/spreadsheets/d/{os.environ["SPREADSHEET_ID"]}
+最後一次回報了各位'''
 
 CADENCE_CALLS = [
     '威武', '嚴肅', '剛直', '安靜', '堅強',
@@ -28,11 +29,14 @@ def create_report():
     service = build('sheets', 'v4', developerKey=api_key)
     sheet = service.spreadsheets()
     results = sheet.values().get(spreadsheetId=spreadsheet_id, range=data_range).execute()
-    records = sorted(results['values'], key=lambda r: r[0])  # [Name, Content]
+
+    if 'values' in results.keys():
+        records = sorted(results['values'], key=lambda r: r[0])  # [Name, Content]
+        content = [f'{name}\n{response}' for name, response in records]
+    else:
+        content = []
 
     now = datetime.now()
-
-    content = [f'{name}\n{response}' for name, response in records]
     header = f'''{now:%m/%d} {now:%H%M} 收假回報
 兵器連 第四班
 應到 13 員 實到 {len(content)} 員
